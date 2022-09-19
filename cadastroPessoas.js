@@ -5,6 +5,7 @@ const crypto = require('crypto')
 
 const opcaSelecionada = prompt (`
     1- Cadastrar uma Pessoa ;
+    2- Cadastrar Produto;
     0 - Sair ;`)
 
  const cadastrarPessoa = function () {
@@ -33,10 +34,45 @@ console.log("Os dados da pessoa foram salvos com sucesso !")
  
  }
 
+ const cadastrarProduto = function () {
+        //Faz a leitura do nosso cadastro de pessoas e armazena em um Array.
+const listaProduto = JSON.parse(fs.readFileSync('Produtos.json'));
+
+//Cria um objeto inicial de um novo cadastro de pessoa com um Código único.
+const produto = { ID: crypto.randomUUID() }
+
+console.log("Iniciando um novo cadastro de produtos...")
+
+//Alimenta o objeto pessoa com seus dados preenchidos.
+produto.nome = prompt('Nome: ')
+produto.preco = prompt('Preco: ')
+produto.ID = prompt('ID: ')
+produto.quantidade = prompt('Quantidade:  ')
+produto.cor = prompt('Cor: ')
+
+//Adiciona o nosso objeto com os dados da pessoa na lista do cadastro.
+listaProduto.push(produto)
+
+//Pega a nossa lista de pessoas e salva no arquivo novamente.
+fs.writeFileSync('Produtos.json', JSON.stringify(listaProduto))
+
+console.log("Os dados do produto foram salvos com sucesso !")
+ 
+
+
+
+
+
+ }
+
  if(opcaSelecionada == 1 ) {
     cadastrarPessoa()
+ } else
+
+ if(opcaSelecionada == 2)
+ {
+    cadastrarProduto()
  }
 
  console.log(opcaSelecionada)
-
 
